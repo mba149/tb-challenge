@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Test / dev data
+tests/
+*.log
+*.tmp
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Git & VCS
+.git/
+.gitignore
+.gitattributes
+
+# Docker files
+Dockerfile*
+.dockerignore
+
+# Build/output
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# IDE/Editor junk
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Secrets (make sure you don't bake them into the image)
+.env
+*.pem
+*.key
+*.crt
