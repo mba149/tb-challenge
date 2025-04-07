@@ -1,0 +1,74 @@
+redis:
+  architecture: standalone
+  auth:
+    enabled: false
+  containerSecurityContext:
+    enabled: false
+  volumePermissions:
+    enabled: true
+
+metrics-server:
+  args:
+    - --kubelet-insecure-tls
+
+nginx-ingress-controller:
+  service:
+    type: NodePort
+
+  ingressClassResource:
+    name: nginx
+    enabled: true
+    default: true
+
+
+image:
+  repository: mba149/tb-challenge
+  tag: latest
+
+serviceAccount:
+  annotations:: {} 
+
+resources:
+  limits:
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+config:
+  create: true
+  data:
+    ENVIRONMENT: PRODUCTION 
+    HOST: tb-challenge.com
+    PORT: 8000
+    REDIS_HOST: tb-challenge-redis-master
+    REDIS_PORT: 6379
+    REDIS_DB: 0
+
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  scaleUp:
+    stabilizationWindowSeconds: 60
+    pods: 1
+    periodSeconds: 60
+    selectPolicy: Min
+  scaleDown:
+    stabilizationWindowSeconds: 100
+    pods: 1
+    periodSeconds: 60
+    selectPolicy: Min
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  rules:
+    - host: tb-challenge.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix

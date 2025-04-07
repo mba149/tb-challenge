@@ -1,0 +1,9 @@
+dependencies:
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 20.11.4
+- name: metrics-server
+  repository: https://kubernetes-sigs.github.io/metrics-server/
+  version: 3.12.2
+digest: sha256:27006b2d34c6fd89e74d778381462d458e69c0277ce5ca818eb0bbfa0f8d22f2
+generated: "2025-04-05T22:08:25.908102+05:00"
